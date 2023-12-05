@@ -4,42 +4,87 @@ let buttonStart = document.getElementById("start");
 let time = document.getElementById("time");
 let startScreen = document.getElementById("start-screen");
 let questionScreen = document.getElementById("questions");
+// let soundCorrect = new Audio("../sfx/correct.wav");
+// let soundIncorrect = new Audio("../sfx/correct.wav");
+let feedbackScreen = document.getElementById("feedback");
+let finalScore = 0;
 
+buttonStart.addEventListener("click", (e) => start(e)); 
 
-buttonStart.addEventListener("click", start); 
-
-function start(){
-    time.innerHTML = 30;
+function start(event){
+    event.stopPropagation()
+    console.log({ event })
+time.innerHTML = 30;
     if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
         startScreen.className = "hide";
         questionScreen.className = "start";
     }
     timer() //starts timer 
-
-//start question function 
+    startQuestions() //starts questions function
 };
 
 function timer(){
     let timerInterval = setInterval(function(){
-        time.innerHTML--;                                    // it will count from 30s
+        time.innerHTML--;                                   // it will count from 30s
         if (time.innerHTML <= 0){              // it will stop then the time runs out OR when anser is wring and timer will go over -0
             clearInterval(timerInterval)
+            endGame()                           // end game screen!
         }
     },1000)
-    };                                        // down by 1 second
+    };                                        // countdown by 1 second
 
 function startQuestions(){
-    //hide start screen id="start-screen" change class form start to hidden 
-    //start question screens visible id="questions" class change to visible form hide (remove the classs attriblute or set to diferrent  )
-    //start timer
-    //
+    let questionTitle = document.getElementById("question-title")
+    let questionAnswer = document.getElementById("choices")
+    if (feedbackScreen.classList == "feedback")
+        feedbackScreen.classList = "hide"
+    
+    for(var i=0; i< questions.length; i++){
+        questionTitle.textContent = questions[i].title;
+        console.log({ question: questions[i] })
+        questionAnswer.innerHTML = questions[i].answers.forEach(answer => { 
+            console.log({ answer })
+            let btn = document.createElement('button');
+            btn.innerHTML = answer;
+            document.body.appendChild(btn);
+            document.remove
+        });
+        if ()
+        questionAnswer.addEventListener("click", chooseAnswer())
     }
+function chooseAnswer(){
+    console.log("Hello")
+// if(questions[i].answers == questions[i].correct){
+            //     soundCorrect.play();
+            //     soundCorrect.currentTime=0; //to be able to play "correct" sound
+            //     feedbackScreen.classList.remove("hide")
+            //     feedbackScreen.textContent = "Correct!" //provides feedback
+            //     finalScore ++ //add points for each correct answer 
+            //     //next q
+                
+            // }else{
+            //     soundIncorrect.play();
+            //     soundIncorrect.currentTime=0; //to be able to play "incorrect" sound
+            //     feedbackScreen.classList.remove("hide")
+            //     feedbackScreen.textContent = "Wrong!"  //provides feedback
+            //     //minus time
+            //     //next q
+            // }
+}
+
+    
 
 
+    //loop throught all questions and shows the answer
+        // in the loop  ich chouce should have a button 
+        //feedbac upon clicking on the button
+        //correct new qursion +1 point sound
+        //false new question 0 points - 5 time  sound
+}
 
-    // set the timer 
-    //and start it
+function endGame(){
 
+}
 
 //for (var i=0, i < questions.length, i++){
 
