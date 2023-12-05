@@ -1,23 +1,38 @@
 // loop trouth the questions, with if satements so if time is less than 0 it exits the loop and it takes us to iniatals total socre and submit and then it takes us to highsocre html
 
-let button = document.getElementById("start") //or querySelector
-let timerEl = document.getElementById("time")
-let timer = 75
-button.addEventListener("click", start);
+let buttonStart = document.getElementById("start") 
+let time = document.getElementById("time")
+
+
+buttonStart.addEventListener("click", start); 
 
 function start(){
+    time.innerHTML = 30
+    timer() //starts timer 
+
+ //hide start screen id="start-screen" change class form start to hidden    
+//start question function 
+};
+
+function startQuestions(){
 //hide start screen id="start-screen" change class form start to hidden 
 //start question screens visible id="questions" class change to visible form hide (remove the classs attriblute or set to diferrent  )
 //start timer
 //
 };
-
-
 function timer(){
+    let timerInterval = setInterval(function(){
+        time.innerHTML--;                                    // it will count from 30s
+        if (time.innerHTML <= 0){              // it will stop then the time runs out OR when anser is wring and timer will go over -0
+            clearInterval(timerInterval)
+        }
+    },1000)
+    };                                        // down by 1 second
+
 
     // set the timer 
     //and start it
-}
+
 
 //for (var i=0, i < questions.length, i++){
 
