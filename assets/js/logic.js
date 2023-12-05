@@ -4,23 +4,28 @@ let buttonStart = document.getElementById("start");
 let time = document.getElementById("time");
 let startScreen = document.getElementById("start-screen");
 let questionScreen = document.getElementById("questions");
-// let soundCorrect = new Audio("../sfx/correct.wav");
-// let soundIncorrect = new Audio("../sfx/correct.wav");
+let questionTitle = document.getElementById("question-title")
+let questionAnswer = document.getElementById("choices")
+let soundCorrect = new Audio("assets/sfx/correct.wav");
+let soundIncorrect = new Audio("assets/sfx/incorrect.wav");
 let feedbackScreen = document.getElementById("feedback");
-let finalScore = 0;
+let endScreen = document.getElementById("end-screen");
+let finalScore = document.getElementById("final-score")
+let score = 0;
+let questionNumber = 0;
 
-buttonStart.addEventListener("click", (e) => start(e)); 
+
+buttonStart.addEventListener("click", start); 
 
 function start(event){
     event.stopPropagation()
-    console.log({ event })
-time.innerHTML = 30;
-    if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
+    time.innerHTML = 30;
+        if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
         startScreen.className = "hide";
         questionScreen.className = "start";
-    }
-    timer() //starts timer 
-    startQuestions() //starts questions function
+        }
+    timer() //starts timer
+    startQuestions();
 };
 
 function timer(){
@@ -34,86 +39,67 @@ function timer(){
     };                                        // countdown by 1 second
 
 function startQuestions(){
-    let questionTitle = document.getElementById("question-title")
-    let questionAnswer = document.getElementById("choices")
-    if (feedbackScreen.classList == "feedback")
-        feedbackScreen.classList = "hide"
-    
-    for(var i=0; i< questions.length; i++){
-        questionTitle.textContent = questions[i].title;
-        console.log({ question: questions[i] })
-        questionAnswer.innerHTML = questions[i].answers.forEach(answer => { 
-            console.log({ answer })
-            let btn = document.createElement('button');
-            btn.innerHTML = answer;
-            document.body.appendChild(btn);
-            document.remove
-        });
-        if ()
-        questionAnswer.addEventListener("click", chooseAnswer())
+    if (feedbackScreen.classList.contains("feedback")){
+        feedbackScreen.classList.add("hide")
+        questionAnswer.innerHTML = ""; //clear previous choices
     }
-function chooseAnswer(){
-    console.log("Hello")
-// if(questions[i].answers == questions[i].correct){
-            //     soundCorrect.play();
-            //     soundCorrect.currentTime=0; //to be able to play "correct" sound
-            //     feedbackScreen.classList.remove("hide")
-            //     feedbackScreen.textContent = "Correct!" //provides feedback
-            //     finalScore ++ //add points for each correct answer 
-            //     //next q
-                
-            // }else{
-            //     soundIncorrect.play();
-            //     soundIncorrect.currentTime=0; //to be able to play "incorrect" sound
-            //     feedbackScreen.classList.remove("hide")
-            //     feedbackScreen.textContent = "Wrong!"  //provides feedback
-            //     //minus time
-            //     //next q
-            // }
+    questionTitle.textContent = questions[questionNumber].title;
+    questions[questionNumber].answers.forEach(answer => { 
+        let btn = document.createElement("button");
+        btn.innerHTML = answer;
+        btn.setAttribute("class", "choice button")
+        btn.addEventListener("click", () => {chooseAnswer(answer)})
+        questionAnswer.appendChild(btn);
+        });
+} 
+//questionAnswer.addEventListener("click", chooseAnswer)
+
+function chooseAnswer(selectedAnswer){
+console.log(questionNumber)
+// store value that was pressed by the button 
+    if(selectedAnswer === questions[questionNumber].correct){
+        feedbackScreen.classList.remove("hide");
+        feedbackScreen.textContent = "Correct!"; //provides feedback
+        soundCorrect.play();
+        soundCorrect.currentTime=0; //to be able to play "correct" sound
+        score ++ //add points for each correct answer 
+        
+        
+    }else{
+        feedbackScreen.classList.remove("hide")
+        feedbackScreen.textContent = "Wrong!"  //provides feedback
+        soundIncorrect.play();
+        soundIncorrect.currentTime=0; //to be able to play "incorrect" sound
+        if (time.innerHTML > 5){
+            time.innerHTML-=5; //minus time
+        }else {
+            time.innerHTML = 0
+
+        }
+        
+        
+}
+        questionNumber = getRandom(questions.length) //get random question
+        setTimeout(startQuestions,1000)
+        
+        
 }
 
-    
-
-
-    //loop throught all questions and shows the answer
-        // in the loop  ich chouce should have a button 
-        //feedbac upon clicking on the button
-        //correct new qursion +1 point sound
-        //false new question 0 points - 5 time  sound
-}
 
 function endGame(){
+    time.innerHTML = 0
+    if(questionScreen.className === "start"){
+        questionScreen.className = "hide";
+        feedbackScreen.classList = "hide";
+        endScreen.className = "start"
+        finalScore.textContent = score
+        // let initials = 
 
+        // localStorage.setItem()
+
+    }
 }
-
-//for (var i=0, i < questions.length, i++){
-
-//}
-
-// section 1
-// start button that .eventListener(click, fuct)
-// HIDE START SCREEN
-// 1. tiggers the timer 
-// 2. starts first question
-
-//secton 2
-//Display queation form the array of questions (only if time > 0)
-// display 4 answers as buttons
-//if correct is clicket - feedbackCORRECT soud CORRECT and point up and next question 
-// if incorrect - feedback WRONG,sound WRONG, timer minus seconds 5or 10, next question, nopoint added,
-
-// section 3
-//if Last qaution or timer<=0
-//stop clearthe timer, 
-// count/display  the points/score final
-// triger to input initials INPUT AND BUTTon
-//submit page to beredirected to highscores // redirect to html page window object
-//save initialsandscores in local storage
-
-//section 4
-//High scores
-// sores higierst to lowest 
-// saved inlocal storege
-//page connected with main page to jump in between 
-
+function getRandom(max){
+    return Math.floor(Math.random()*max) // we need the length of the array -1 this wont include last num
+}
 
