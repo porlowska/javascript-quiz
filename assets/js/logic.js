@@ -1,25 +1,24 @@
 // loop trouth the questions, with if satements so if time is less than 0 it exits the loop and it takes us to iniatals total socre and submit and then it takes us to highsocre html
 
-let buttonStart = document.getElementById("start") 
-let time = document.getElementById("time")
+let buttonStart = document.getElementById("start");
+let time = document.getElementById("time");
+let startScreen = document.getElementById("start-screen");
+let questionScreen = document.getElementById("questions");
 
 
 buttonStart.addEventListener("click", start); 
 
 function start(){
-    time.innerHTML = 30
+    time.innerHTML = 30;
+    if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
+        startScreen.className = "hide";
+        questionScreen.className = "start";
+    }
     timer() //starts timer 
 
- //hide start screen id="start-screen" change class form start to hidden    
 //start question function 
 };
 
-function startQuestions(){
-//hide start screen id="start-screen" change class form start to hidden 
-//start question screens visible id="questions" class change to visible form hide (remove the classs attriblute or set to diferrent  )
-//start timer
-//
-};
 function timer(){
     let timerInterval = setInterval(function(){
         time.innerHTML--;                                    // it will count from 30s
@@ -28,6 +27,14 @@ function timer(){
         }
     },1000)
     };                                        // down by 1 second
+
+function startQuestions(){
+    //hide start screen id="start-screen" change class form start to hidden 
+    //start question screens visible id="questions" class change to visible form hide (remove the classs attriblute or set to diferrent  )
+    //start timer
+    //
+    }
+
 
 
     // set the timer 
