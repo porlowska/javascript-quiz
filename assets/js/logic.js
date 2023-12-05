@@ -101,5 +101,6 @@ function endGame(){
 }
 function getRandom(max){
     return Math.floor(Math.random()*max) // we need the length of the array -1 this wont include last num
+    
 }
 
