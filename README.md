@@ -8,7 +8,7 @@ This application is  timed coding quiz with multiple-choice questions. This app 
 
 This app runs in the browser, and features dynamically updated HTML and CSS powered by JavaScript.
 
-To access the password generator please [follow the link]([https://porlowska.github.io/javascript-quiz/](https://porlowska.github.io/javascript-quiz/)). 
+To access the password generator please [follow the link](https://porlowska.github.io/javascript-quiz/). 
 
 Then press "START" button.
 
