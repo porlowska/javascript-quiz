@@ -13,7 +13,7 @@ let storedScore = JSON.parse(localStorage.getItem("score"));
 getScores();
 }
 
-function getScores(){
+function getScores(){ // creates list items with scores pulled from local storage 
     highscoresBoard.innerHTML = "";
     for (var i=0; i<allScores.length; i++){
         let scoreList = allScores[i];
@@ -23,7 +23,7 @@ function getScores(){
     }
 }
 
-clear.addEventListener("click", ()=>{
+clear.addEventListener("click", ()=>{ // clears the local storage and deltes the scores, also dispalys message of no scores
     localStorage.clear();
     highscoresBoard.textContent = "no highscore!"
 });
