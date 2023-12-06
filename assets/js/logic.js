@@ -14,11 +14,12 @@ let score = 0;
 let questionNumber = 0;
 
 
+
 buttonStart.addEventListener("click", start); 
 
 function start(event){
     event.stopPropagation()
-    time.innerHTML = 10;
+    time.innerHTML = 20;
     if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
         startScreen.className = "hide";
         questionScreen.className = "start";
@@ -92,10 +93,9 @@ function endGame(){
     buttonSubmit.addEventListener("click", ()=>highScores(score))
 }
 
-let initials = document.getElementById("initials").value
 
 function highScores(){
-    let initials = document.getElementById("initials").value
+    let initials = document.getElementById("initials").value;
     let scoreBoard = new Object();
     scoreBoard.initials = initials;
     scoreBoard.score = score;
