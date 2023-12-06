@@ -19,7 +19,7 @@ buttonStart.addEventListener("click", start);
 
 function start(event){
     event.stopPropagation()
-    time.innerHTML = 10;
+    time.innerHTML = 20;
     if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
         startScreen.className = "hide";
         questionScreen.className = "start";
