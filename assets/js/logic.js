@@ -96,13 +96,10 @@ function endGame(){
 
 function highScores(){
     let initials = document.getElementById("initials").value;
-    let scoreBoard = new Object();
-    scoreBoard.initials = initials;
-    scoreBoard.score = score;
-    localStorage.setItem("score", JSON.stringify(scoreBoard))
+    localStorage.setItem(initials, JSON.stringify(score))
     if(endScreen.className = "start"){
         endScreen.className = "hide"
-        window.location.href = "/Users/porlowska/bootcamp/Challange/javascript-quiz/highscores.html"
+        window.location.href = "highscores.html"
     }
 }
 

@@ -6,9 +6,11 @@ let allScores = []
 renderScores()
 
 function renderScores(){ //pulls all info form local storage 
-let storedScore = JSON.parse(localStorage.getItem("score"));
+let storedScore = Object.entries(localStorage);
     if (storedScore !== null) {
-    allScores = Object.values(storedScore);
+    allScores = Object.entries(localStorage);
+    } else{
+        highscoresBoard.textContent = "no highscore!"
     }
 getScores();
 }
@@ -18,7 +20,7 @@ function getScores(){ // creates list items with scores pulled from local storag
     for (var i=0; i<allScores.length; i++){
         let scoreList = allScores[i];
         var li = document.createElement("li");
-        li.textContent = allScores
+        li.textContent = allScores[i]
         highscoresBoard.appendChild(li)
     }
 }
