@@ -1,5 +1,3 @@
-// loop trouth the questions, with if satements so if time is less than 0 it exits the loop and it takes us to iniatals total socre and submit and then it takes us to highsocre html
-
 let buttonStart = document.getElementById("start");
 let time = document.getElementById("time");
 let startScreen = document.getElementById("start-screen");
@@ -10,7 +8,8 @@ let soundCorrect = new Audio("assets/sfx/correct.wav");
 let soundIncorrect = new Audio("assets/sfx/incorrect.wav");
 let feedbackScreen = document.getElementById("feedback");
 let endScreen = document.getElementById("end-screen");
-let finalScore = document.getElementById("final-score")
+let finalScore = document.getElementById("final-score");
+let buttonSubmit = document.getElementById("submit");
 let score = 0;
 let questionNumber = 0;
 
@@ -19,8 +18,8 @@ buttonStart.addEventListener("click", start);
 
 function start(event){
     event.stopPropagation()
-    time.innerHTML = 30;
-        if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
+    time.innerHTML = 10;
+    if (startScreen.className === "start" && questionScreen.className === "hide"){ // screen changes from start screen to questions screen 
         startScreen.className = "hide";
         questionScreen.className = "start";
         }
@@ -48,19 +47,16 @@ function startQuestions(){
         let btn = document.createElement("button");
         btn.innerHTML = answer;
         btn.setAttribute("class", "choice button")
-        btn.addEventListener("click", () => {chooseAnswer(answer)})
+        btn.addEventListener("click", () => {chooseAnswer(answer)}) // so the parameter is pased to the next function
         questionAnswer.appendChild(btn);
         });
-} 
-//questionAnswer.addEventListener("click", chooseAnswer)
+}
 
 function chooseAnswer(selectedAnswer){
-console.log(questionNumber)
-// store value that was pressed by the button 
     if(selectedAnswer === questions[questionNumber].correct){
         feedbackScreen.classList.remove("hide");
         feedbackScreen.textContent = "Correct!"; //provides feedback
-        soundCorrect.play();
+        soundCorrect.play(); //plays sound 
         soundCorrect.currentTime=0; //to be able to play "correct" sound
         score ++ //add points for each correct answer 
         
@@ -71,18 +67,14 @@ console.log(questionNumber)
         soundIncorrect.play();
         soundIncorrect.currentTime=0; //to be able to play "incorrect" sound
         if (time.innerHTML > 5){
-            time.innerHTML-=5; //minus time
+            time.innerHTML-=5; //minus 5s for each wrong answer
         }else {
             time.innerHTML = 0
-
         }
-        
-        
-}
-        questionNumber = getRandom(questions.length) //get random question
-        setTimeout(startQuestions,1000)
-        
-        
+    }
+    questionNumber = getRandom(questions.length) //gets index number of next random question
+    setTimeout(startQuestions,500) // allows the feedback to be displayed for 0.5s before running next question
+                                    // because start questions is nested here it will also take the variable of question number from here instead of the global scope
 }
 
 
@@ -90,17 +82,30 @@ function endGame(){
     time.innerHTML = 0
     if(questionScreen.className === "start"){
         questionScreen.className = "hide";
-        feedbackScreen.classList = "hide";
+        feedbackScreen.classList.add("hide");
         endScreen.className = "start"
         finalScore.textContent = score
-        // let initials = 
+    }
+    buttonSubmit.addEventListener("submit", function(e){
+        e.preventDefault();
+    })
+    buttonSubmit.addEventListener("click", ()=>highScores(score))
+}
 
-        // localStorage.setItem()
+let initials = document.getElementById("initials").value
 
+function highScores(){
+    let initials = document.getElementById("initials").value
+    let scoreBoard = new Object();
+    scoreBoard.initials = initials;
+    scoreBoard.score = score;
+    localStorage.setItem("score", JSON.stringify(scoreBoard))
+    if(endScreen.className = "start"){
+        endScreen.className = "hide"
+        window.location.href = "/Users/porlowska/bootcamp/Challange/javascript-quiz/highscores.html"
     }
 }
+
 function getRandom(max){
     return Math.floor(Math.random()*max) // we need the length of the array -1 this wont include last num
-    
 }
-
