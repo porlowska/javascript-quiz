@@ -14,6 +14,7 @@ let score = 0;
 let questionNumber = 0;
 
 
+
 buttonStart.addEventListener("click", start); 
 
 function start(event){
@@ -92,10 +93,9 @@ function endGame(){
     buttonSubmit.addEventListener("click", ()=>highScores(score))
 }
 
-let initials = document.getElementById("initials").value
 
 function highScores(){
-    let initials = document.getElementById("initials").value
+    let initials = document.getElementById("initials").value;
     let scoreBoard = new Object();
     scoreBoard.initials = initials;
     scoreBoard.score = score;
